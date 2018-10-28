@@ -7,10 +7,11 @@
         "start": "node app.js"
     },
     "dependencies": {
-        "express": "latest",
-        "morgan": "latest",
         "body-parser": "latest",
-        "ejs": "latest"
+        "ejs": "latest",
+        "express": "latest",
+        "mailgun-js": "^0.22.0",
+        "morgan": "latest"
     },
     "author": "Rohit Naini",
     "homepage": "https://bitbucket.org/professorcase/a03",

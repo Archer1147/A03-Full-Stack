@@ -38,47 +38,56 @@ app.use(logger('combined', { stream: accessLogStream }));
 
 // 4 http GET default page at /
 app.get("/", function (req, res) {
- //res.sendFile(path.join(__dirname + '/assets/index.html'))
- res.render("index.ejs");
+  //res.sendFile(path.join(__dirname + '/assets/index.html'))
+  res.render("index.ejs");
 })
 
 // 4 http GET /tic-tac-toe
 app.get("/tic-tac-toe", function (req, res) {
- res.render("application.ejs");
+  res.render("application.ejs");
 })
 
 // 4 http GET /about
 app.get("/about", function (req, res) {
- res.render("aboutme.ejs");
+  res.render("aboutme.ejs");
 })
 
 // 4 http GET /contact
 app.get("/contact", function (req, res) {
- res.render("contactme.ejs");
+  res.render("contactme.ejs");
 })
 // 5 http POST /contact
 app.post("/contact", function (req, res) {
- const name = req.body.inputname;
- const email = req.body.inputemail;
- const company = req.body.inputcompany;
- const comment = req.body.inputcomment;
- const isError = true;
+  const name = req.body.name;
+  const email = req.body.email;
+  const comment = req.body.message;
+  const isError = true;
 
- // setup e-mail data with unicode symbols
- const mailOptions = {
-   from: '"Denise Case" <denisecase@gmail.com>', // sender address
-   to: 'dcase@nwmissouri.edu, denisecase@gmail.com', // list of receivers
-   subject: 'Message from Website Contact page', // Subject line
-   text: comment,
-   err: isError
- }
+  var api_key = 'cc79a5c3b645bbc69a404e4d4cf3385c-4836d8f5-28a9383b';
+  var domain = 'sandboxc48ba95a4864422d82cfa4b8c666b831.mailgun.org';
+  var mailgun = require('mailgun-js')({ apiKey: api_key, domain: domain });
 
- // logs to the terminal window (not the browser)
- console.log('\nCONTACT FORM DATA: ' + name + ' ' + email + ' ' + comment + '\n');
- });
+  text = "Name : "+ name+ "\n"
+          + "Email : "+ email+ "\n"
+          + "Message : "+ comment
+  var data = {
+    from: 'Mail Gun archerblazek <postmaster@sandboxc48ba95a4864422d82cfa4b8c666b831.mailgun.org>',
+    to: 'archerblazek@gmail.com',
+    subject: 'Webapps Mail',
+    text: text
+  };
+
+  mailgun.messages().send(data, function (error, body) {
+    console.log(body);
+    res.redirect("/contact")
+  });
+
+ 
+  
+});
 // 6 this will execute for all unknown URIs not specifically handled
 app.get(function (req, res) {
- res.render("404")
+  res.render("404")
 });
 
 
