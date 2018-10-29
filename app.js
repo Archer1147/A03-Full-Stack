@@ -63,7 +63,7 @@ app.post("/contact", function (req, res) {
   const comment = req.body.message;
   const isError = true;
 
-  var api_key = 'cc79a5c3b645bbc69a404e4d4cf3385c-4836d8f5-28a9383b';
+  var api_key = 'pubkey-5596cf033c3c0052999a246bf2e6f034';
   var domain = 'sandboxc48ba95a4864422d82cfa4b8c666b831.mailgun.org';
   var mailgun = require('mailgun-js')({ apiKey: api_key, domain: domain });
 
